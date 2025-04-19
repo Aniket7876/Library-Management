@@ -8,7 +8,7 @@ import authRouter from './routes/authRouter.js';
 import bookRouter from './routes/bookRouter.js';
 import borrowRouter from './routes/borrowRoutes.js';
 import fileUpload from 'express-fileupload';
-import userRouter from './routes/userrouter.js';
+import userRouter from './routes/userRouter.js';
 import { notifyUsers } from './services/notifyUsers.js';
 import { removeUnverifiedAccount } from './services/removeUnverifiedAccount.js';
 import morgan from 'morgan';
