@@ -12,8 +12,15 @@ import userRouter from './routes/userRouter.js';
 import { notifyUsers } from './services/notifyUsers.js';
 import { removeUnverifiedAccount } from './services/removeUnverifiedAccount.js';
 import morgan from 'morgan';
+import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+  api_key: process.env.CLOUDINARY_CLIENT_API,
+  api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
+});
 
 export const app = express();
 app.use(morgan(':method :url :status'));
