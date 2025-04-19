@@ -21,12 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd Library-Management
           npm install
 
       - name: Run Tests
         run: |
-          cd Library-Management
           npm test
 
       - name: Deploy to EC2
