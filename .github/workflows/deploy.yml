@@ -1,10 +1,10 @@
 # .github/workflows/deploy.yml
-name: CI/CD Pipeline
+name: Fullstack CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
   deploy:
@@ -17,24 +17,54 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # or your version
+          node-version: '18'
 
-      - name: Install dependencies
+      # --- Backend Setup (Locally) ---
+      - name: Install Backend Dependencies
         run: |
+          cd Library-Management/backend
           npm install
 
-      - name: Run Tests
+      - name: Run Backend Tests
         run: |
+          cd Library-Management/backend
           npm test
 
-      - name: Deploy to EC2
+      # --- Frontend Build (Locally) ---
+      - name: Install Frontend Dependencies
+        run: |
+          cd Library-Management/frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd Library-Management/frontend
+          npm run build
+
+      # --- Deploy to EC2 ---
+      - name: Deploy to EC2 Server
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/Library-Management
+            echo "🔁 Pulling latest code"
+            cd ~/Library-Management
             git pull origin main
+
+            echo "🚀 Deploying backend"
+            cd backend
             npm install
             pm2 restart all
+
+            echo "🛠 Building frontend"
+            cd ../frontend
+            npm install
+            npm run build
+
+            echo "📦 Deploying frontend to Nginx"
+            sudo cp -r dist/* /var/www/html/
+            sudo systemctl reload nginx
+
+            echo "✅ Deployment complete!"
