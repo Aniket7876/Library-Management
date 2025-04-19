@@ -19,26 +19,26 @@ jobs:
         with:
           node-version: '18'
 
-      # --- Backend Setup (Locally) ---
+      # --- Backend Setup ---
       - name: Install Backend Dependencies
         run: |
-          cd Library-Management/backend
+          cd backend
           npm install
 
       - name: Run Backend Tests
         run: |
-          cd Library-Management/backend
+          cd backend
           npm test
 
-      # --- Frontend Build (Locally) ---
+      # --- Frontend Build ---
       - name: Install Frontend Dependencies
         run: |
-          cd Library-Management/frontend
+          cd frontend
           npm install
 
       - name: Build Frontend
         run: |
-          cd Library-Management/frontend
+          cd frontend
           npm run build
 
       # --- Deploy to EC2 ---
