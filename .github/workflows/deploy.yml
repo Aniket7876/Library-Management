@@ -20,12 +20,14 @@ jobs:
           node-version: '18'  # or your version
 
       - name: Install dependencies
-        cd Library-Management
-        run: npm install
+        run: |
+          cd Library-Management
+          npm install
 
       - name: Run Tests
-        cd Library-Management
-        run: npm test
+        run: |
+          cd Library-Management
+          npm test
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
