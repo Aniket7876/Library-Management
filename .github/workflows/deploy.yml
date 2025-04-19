@@ -20,9 +20,11 @@ jobs:
           node-version: '18'  # or your version
 
       - name: Install dependencies
+        cd Library-Management
         run: npm install
 
       - name: Run Tests
+        cd Library-Management
         run: npm test
 
       - name: Deploy to EC2
