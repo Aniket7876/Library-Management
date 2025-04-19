@@ -25,16 +25,6 @@ jobs:
           cd backend
           npm install
 
-      # --- Frontend Build ---
-      - name: Install Frontend Dependencies
-        run: |
-          cd frontend
-          npm install
-
-      - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
 
       # --- Deploy to EC2 ---
       - name: Deploy to EC2 Server
@@ -55,7 +45,6 @@ jobs:
 
             echo "🛠 Building frontend"
             cd ../frontend
-            npm install
             npm run build
 
             echo "📦 Deploying frontend to Nginx"
