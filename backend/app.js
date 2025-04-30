@@ -27,7 +27,7 @@ app.use(morgan(':method :url :status'));
 
 app.use(
   cors({
-    origin: ['http://3.110.158.74'],
+    origin: ['http://13.201.100.192'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
