@@ -4,7 +4,7 @@ name: Fullstack CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
