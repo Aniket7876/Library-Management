@@ -1,10 +1,9 @@
-# .github/workflows/deploy.yml
 name: Fullstack CI/CD Pipeline
 
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
@@ -25,6 +24,11 @@ jobs:
           cd backend
           npm install
 
+      # --- Frontend Setup ---
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
 
       # --- Deploy to EC2 ---
       - name: Deploy to EC2 Server
@@ -36,19 +40,31 @@ jobs:
           script: |
             echo "🔁 Pulling latest code"
             cd ~/Library-Management
-            git pull origin main
+            git pull origin dev
 
             echo "🚀 Deploying backend"
             cd backend
             npm install
-            pm2 restart all
+            pm2 restart api || pm2 start npm --name "api" -- start
 
             echo "🛠 Building frontend"
             cd ../frontend
+            npm install
             npm run build
 
             echo "📦 Deploying frontend to Nginx"
             sudo cp -r dist/* /var/www/html/
-            sudo systemctl reload nginx
+            sudo chown -R nginx:nginx /var/www/html
+            sudo chmod -R 755 /var/www/html
+
+            echo "🔍 Testing Nginx configuration"
+            sudo nginx -t
+            if [ $? -eq 0 ]; then
+              echo "🔄 Restarting Nginx"
+              sudo systemctl restart nginx
+            else
+              echo "❌ Nginx configuration test failed"
+              exit 1
+            fi
 
             echo "✅ Deployment complete!"
