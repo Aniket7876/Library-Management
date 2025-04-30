@@ -27,7 +27,7 @@ app.use(morgan(':method :url :status'));
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
