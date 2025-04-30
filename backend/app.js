@@ -27,11 +27,13 @@ app.use(morgan(':method :url :status'));
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ['http://3.110.158.74'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   })
 );
+app.options('*', cors());
 
 app.use(cookieParser());
 
