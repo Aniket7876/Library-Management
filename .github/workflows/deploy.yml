@@ -40,7 +40,7 @@ jobs:
           script: |
             echo "🔁 Pulling latest code"
             cd ~/Library-Management
-            git pull origin dev
+            git pull origin main
 
             echo "🚀 Deploying backend"
             cd backend
