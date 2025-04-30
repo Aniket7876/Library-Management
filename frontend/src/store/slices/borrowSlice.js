@@ -84,7 +84,7 @@ const borrowSlice = createSlice({
 export const fetchUserBorrowBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest());
   await axios
-    .get('http://13.235.69.70:4000/api/v1/borrow/my-borrowed-books', { withCredentials: true })
+    .get('http://3.110.158.74:4000/api/v1/borrow/my-borrowed-books', { withCredentials: true })
     .then((res) => {
       dispatch(borrowSlice.actions.fetchUserBorrowedBooksSuccess(res.data.borrowedBooks));
     })
@@ -96,7 +96,7 @@ export const fetchUserBorrowBooks = () => async (dispatch) => {
 export const fetchAllBorrowBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
   await axios
-    .get('http://13.235.69.70:4000/api/v1/borrow/borrowed-books-by-users', { withCredentials: true })
+    .get('http://3.110.158.74:4000/api/v1/borrow/borrowed-books-by-users', { withCredentials: true })
     .then((res) => {
       dispatch(borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks));
     })
@@ -109,7 +109,7 @@ export const recordBorrowBook = (id, email) => async (dispatch) => {
   dispatch(borrowSlice.actions.recordBookRequest());
   await axios
     .post(
-      `http://13.235.69.70:4000/api/v1/borrow/record-borrow-book/${id}`,
+      `http://3.110.158.74:4000/api/v1/borrow/record-borrow-book/${id}`,
       { email },
       {
         withCredentials: true,
@@ -135,7 +135,7 @@ export const returnBook = (id, email) => async (dispatch) => {
     }
 
     const response = await axios.put(
-      `http://13.235.69.70:4000/api/v1/borrow/return-book/${id}`,
+      `http://3.110.158.74:4000/api/v1/borrow/return-book/${id}`,
       { email },
       {
         withCredentials: true,

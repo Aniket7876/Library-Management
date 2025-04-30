@@ -52,7 +52,7 @@ const bookSlice = createSlice({
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
   await axios
-    .get('http://13.235.69.70:4000/api/v1/book/all', { withCredentials: true })
+    .get('http://3.110.158.74:4000/api/v1/book/all', { withCredentials: true })
     .then((res) => {
       dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
     })
@@ -64,7 +64,7 @@ export const fetchAllBooks = () => async (dispatch) => {
 export const addBook = (data) => async (dispatch) => {
   dispatch(bookSlice.actions.addBookRequest());
   await axios
-    .post('http://13.235.69.70:4000/api/v1/book/admin/add', data, {
+    .post('http://3.110.158.74:4000/api/v1/book/admin/add', data, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
